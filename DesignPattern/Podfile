@@ -1,0 +1,5 @@
+link_with 'DesignPattern'
+platform :ios, '8.0'
+
+pod 'SDWebImage'
+pod 'Masonry'
