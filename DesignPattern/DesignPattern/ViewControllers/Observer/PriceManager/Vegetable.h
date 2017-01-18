@@ -12,20 +12,20 @@
 @interface Potato : NSObject<Observer, DisplayElement>
 
 @property (nonatomic, assign) float price;
-@property (copy, nonatomic) void(^callback)(float);
+@property (copy, nonatomic) void(^priceChanged)(float);
 
 @end
 
 @interface Tomato : NSObject<Observer, DisplayElement>
 
 @property (nonatomic, assign) float price;
-@property (copy, nonatomic) void(^callback)(float);
+@property (copy, nonatomic) void(^priceChanged)(float);
 
 @end
 
 @interface Onion : NSObject<Observer, DisplayElement>
 
 @property (nonatomic, assign) float price;
-@property (copy, nonatomic) void(^callback)(float);
+@property (copy, nonatomic) void(^priceChanged)(float);
 
 @end

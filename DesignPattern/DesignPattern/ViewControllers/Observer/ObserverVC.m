@@ -10,7 +10,11 @@
 #import "VegetablesPriceData.h"
 #import "Vegetable.h"
 
-@interface ObserverVC ()
+@interface ObserverVC () {
+    float pPrice;
+    float tPrice;
+    float oPrice;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *potatoPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tomatoPriceLabel;
@@ -31,10 +35,28 @@
     
     self.title = @"观察者模式";
     
+    pPrice = 1.0f;
+    tPrice = 0.7f;
+    oPrice = 3.2f;
+    
+    __weak __typeof__(self) ws = self;
+    
     self.priceManager = VegetablesPriceData.new;
     self.potato = Potato.new;
+    self.potato.priceChanged = ^(float price) {
+        NSLog(@"土豆价格：%.2f元", price);
+        ws.potatoPriceLabel.text = [NSString stringWithFormat:@"%.2f元", price];
+    };
     self.tomato = Tomato.new;
+    self.tomato.priceChanged = ^(float price) {
+        NSLog(@"西红柿价格：%.2f元", price);
+        ws.tomatoPriceLabel.text = [NSString stringWithFormat:@"%.2f元", price];
+    };
     self.onion = Onion.new;
+    self.onion.priceChanged = ^(float price) {
+        NSLog(@"洋葱价格：%.2f元", price);
+        ws.unionPriceLabel.text = [NSString stringWithFormat:@"%.2f元", price];
+    };
     [self.priceManager registerObserver:self.potato];
     [self.priceManager registerObserver:self.tomato];
     [self.priceManager registerObserver:self.onion];
@@ -45,14 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)updateButtonOnClick:(id)sender {
+    pPrice *= 1.1f;
+    tPrice *= 1.1f;
+    oPrice *= 1.1f;
+    [self.priceManager setPotatoPrice:pPrice tomatoPrice:tPrice onionPrice:oPrice];
 }
-*/
 
 @end
