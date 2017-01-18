@@ -16,9 +16,8 @@
 }
 
 - (void)display {
-    NSLog(@"土豆价格：%.2f元", self.price);
-    if (self.callback) {
-        self.callback(self.price);
+    if (self.priceChanged) {
+        self.priceChanged(self.price);
     }
 }
 
@@ -32,7 +31,9 @@
 }
 
 - (void)display {
-    
+    if (self.priceChanged) {
+        self.priceChanged(self.price);
+    }
 }
 
 @end
@@ -45,7 +46,9 @@
 }
 
 - (void)display {
-    
+    if (self.priceChanged) {
+        self.priceChanged(self.price);
+    }
 }
 
 @end
